@@ -1,0 +1,51 @@
+
+
+Table user{
+  id int [pk, increment]
+  name varchar
+  password varchar
+  money_amount int
+}
+
+Table snail{
+  id int [pk, increment]
+  user_id int
+  name varchar
+  speed int
+  stamina int
+  skin_id int
+}
+
+Table skin{
+  id int [pk, increment]
+  color varchar
+}
+
+Table map{
+  id int [pk, increment]
+  name varchar
+  url varchar
+}
+
+Table snail_match{
+  snail_id int
+  match_id int
+  place int
+}
+
+Table match{
+  id int [pk, increment]
+  map_id int
+  user_id int
+  money_set int
+  won boolean
+  match_date date
+}
+
+Ref: snail.user_id > user.id
+Ref: match.user_id > user.id
+Ref: snail.skin_id > skin.id
+Ref: snail_match.match_id > match.id
+Ref: snail_match.snail_id > snail.id
+
+Ref: match.map_id > map.id
