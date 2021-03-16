@@ -3,12 +3,15 @@ package hu.dreamteam.snailleague.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "snail")
+@Table(name = "snails")
 public class Snail {
+
+    // ID
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    // Columns
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -18,10 +21,28 @@ public class Snail {
     @Column(name = "stamina", nullable = false)
     private Integer stamina;
 
+    // From Users Table
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="userId", nullable=false)
+    @JoinColumn(name = "userId", nullable = false)
     private User userId;
 
+    // From Skins Table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "skinId", nullable = false)
+    private Skin skinId;
+
+    // Constructor
+    public Snail() {
+
+    }
+
+    public Snail(String name, Integer speed, Integer stamina) {
+        this.name = name;
+        this.speed = speed;
+        this.stamina = stamina;
+    }
+
+    // Getters, Setters
     public Long getId() {
         return id;
     }
@@ -60,5 +81,13 @@ public class Snail {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public Skin getSkinId() {
+        return skinId;
+    }
+
+    public void setSkinId(Skin skinId) {
+        this.skinId = skinId;
     }
 }

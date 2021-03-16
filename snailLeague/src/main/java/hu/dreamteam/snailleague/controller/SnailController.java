@@ -19,4 +19,10 @@ public class SnailController {
     // update snail to user id
 
     // delete snail from user id
+
+    // get snail's stats (speed, stamina, skin)
+
+    // set snail's stats (speed, stamina, skin)
+
+    // ...
 }

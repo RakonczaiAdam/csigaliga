@@ -6,12 +6,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
+
+    // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Columns
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -21,20 +24,17 @@ public class User {
     @Column(name = "money_amount", nullable = false)
     private Integer moneyAmount;
 
+    // From Snail Table
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Snail> snails;
 
-    public User() {
+    // From Match Table
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Match> matches;
 
-    }
-
-    public User(String name, String password, Integer moneyAmount) {
-        this.name = name;
-        this.password = password;
-        this.moneyAmount = moneyAmount;
-    }
-
+    // Getters, Setters
     public Long getId() {
         return id;
     }
@@ -73,5 +73,13 @@ public class User {
 
     public void setSnails(List<Snail> snails) {
         this.snails = snails;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 }
