@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    // save user
+    // create user
     @PostMapping("/users")
     public User createUser(@RequestBody User user) {
         return this.userRepository.save(user);
