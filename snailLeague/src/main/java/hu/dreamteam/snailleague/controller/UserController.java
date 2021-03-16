@@ -43,9 +43,9 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @Validated @RequestBody User userDetails) throws ResourceNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
 
-        user.setUsername(userDetails.getUsername());
-        user.setMoney(userDetails.getMoney());
-        user.setSuccessfulBets(userDetails.getSuccessfulBets());
+        user.setName(userDetails.getName());
+        user.setPassword(userDetails.getPassword());
+        user.setMoneyAmount(userDetails.getMoneyAmount());
 
         return ResponseEntity.ok(this.userRepository.save(user));
     }

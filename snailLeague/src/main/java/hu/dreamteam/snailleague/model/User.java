@@ -1,31 +1,38 @@
 package hu.dreamteam.snailleague.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "money")
-    private Integer money;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Column(name = "successful_bets")
-    private Integer successfulBets;
+    @Column(name = "money_amount", nullable = false)
+    private Integer moneyAmount;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Snail> snails;
 
     public User() {
 
     }
 
-    public User(String username, Integer money, Integer successfulBets) {
-        this.username = username;
-        this.money = money;
-        this.successfulBets = successfulBets;
+    public User(String name, String password, Integer moneyAmount) {
+        this.name = name;
+        this.password = password;
+        this.moneyAmount = moneyAmount;
     }
 
     public Long getId() {
@@ -36,27 +43,35 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getMoney() {
-        return money;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Integer getSuccessfulBets() {
-        return successfulBets;
+    public Integer getMoneyAmount() {
+        return moneyAmount;
     }
 
-    public void setSuccessfulBets(Integer successfulBets) {
-        this.successfulBets = successfulBets;
+    public void setMoneyAmount(Integer moneyAmount) {
+        this.moneyAmount = moneyAmount;
+    }
+
+    public List<Snail> getSnails() {
+        return snails;
+    }
+
+    public void setSnails(List<Snail> snails) {
+        this.snails = snails;
     }
 }
