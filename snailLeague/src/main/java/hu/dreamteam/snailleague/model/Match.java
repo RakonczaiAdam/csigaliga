@@ -2,6 +2,8 @@ package hu.dreamteam.snailleague.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "matches")
@@ -31,6 +33,10 @@ public class Match {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false)
     private User userId;
+
+    // From SnailMatch Table
+    @OneToMany(mappedBy = "match")
+    private Set<SnailMatch> snailMatches;
 
     // Getters, Setters
     public Long getId() {
@@ -79,5 +85,13 @@ public class Match {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public Set<SnailMatch> getSnailMatches() {
+        return snailMatches;
+    }
+
+    public void setSnailMatches(Set<SnailMatch> snailMatches) {
+        this.snailMatches = snailMatches;
     }
 }
