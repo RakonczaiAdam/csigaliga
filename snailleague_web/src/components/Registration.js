@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Login extends React.Component{
+class Registration extends React.Component{
     render(){
         return(
         <div className="App">
@@ -14,6 +14,10 @@ class Login extends React.Component{
                   <label for="pwd" class="">Password</label>
                   <input type="password" class="" id="pwd" placeholder ="Password"/>
                 </div>
+                 <div class="">
+                  <label for="pwd" class="">Password again</label>
+                  <input type="password" class="" id="pwd" placeholder ="Password"/>
+                 </div>
 
                 <button type="submit" class="btn btn-primary">Login</button>
               </form>
@@ -22,4 +26,4 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+export default Registration;
