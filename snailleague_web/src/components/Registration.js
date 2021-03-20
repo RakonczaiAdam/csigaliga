@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
 class Registration extends React.Component{
     render(){
@@ -8,7 +9,6 @@ class Registration extends React.Component{
                 <div class="">
                   <label for="username" class="">Username</label>
                   <input type="text" class="" id="username" placeholder ="Username" />
-
                 </div>
                 <div class="">
                   <label for="pwd" class="">Password</label>
@@ -19,8 +19,13 @@ class Registration extends React.Component{
                   <input type="password" class="" id="pwd" placeholder ="Password"/>
                  </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Registration</button>
               </form>
+              <Link to="/login">
+                <button type="button">
+                    Login
+                </button>
+              </Link>
             </div>
             )
     }

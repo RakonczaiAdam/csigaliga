@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
 class Login extends React.Component{
     render(){
@@ -17,6 +18,11 @@ class Login extends React.Component{
 
                 <button type="submit" class="btn btn-primary">Login</button>
               </form>
+              <Link to="/registration">
+                <button type="button">
+                      Registration
+                </button>
+              </Link>
             </div>
             )
     }
