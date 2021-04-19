@@ -2,7 +2,6 @@ package hu.dreamteam.snailleague.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,28 +14,24 @@ public class Match {
     private Long id;
 
     // Columns
-    @Column(name = "won", nullable = false)
-    private Boolean won;
-
-    @Column(name = "money_set", nullable = false)
-    private Integer moneySet;
-
     @Column(name = "match_date", nullable = false)
     private Date matchDate;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 
     // From Maps Table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mapId", nullable = false)
     private Map mapId;
 
-    // From Users Table
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
-    private User userId;
-
     // From SnailMatch Table
-    @OneToMany(mappedBy = "match")
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SnailMatch> snailMatches;
+
+    // From UserMatch Table
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserMatch> userMatches;
 
     // Getters, Setters
     public Long getId() {
@@ -47,20 +42,12 @@ public class Match {
         this.id = id;
     }
 
-    public Boolean getWon() {
-        return won;
+    public String getStatus() {
+        return status;
     }
 
-    public void setWon(Boolean won) {
-        this.won = won;
-    }
-
-    public Integer getMoneySet() {
-        return moneySet;
-    }
-
-    public void setMoneySet(Integer moneySet) {
-        this.moneySet = moneySet;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getMatchDate() {
@@ -79,19 +66,19 @@ public class Match {
         this.mapId = mapId;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
     public Set<SnailMatch> getSnailMatches() {
         return snailMatches;
     }
 
     public void setSnailMatches(Set<SnailMatch> snailMatches) {
         this.snailMatches = snailMatches;
+    }
+
+    public Set<UserMatch> getUserMatches() {
+        return userMatches;
+    }
+
+    public void setUserMatches(Set<UserMatch> userMatches) {
+        this.userMatches = userMatches;
     }
 }

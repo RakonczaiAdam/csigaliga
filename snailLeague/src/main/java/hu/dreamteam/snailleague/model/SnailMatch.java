@@ -2,12 +2,11 @@ package hu.dreamteam.snailleague.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @IdClass(SnailMatch.class)
 public class SnailMatch implements java.io.Serializable {
 
-    // IDs
+    // Foreign IDs
     @Id
     @ManyToOne
     private Snail snail;
@@ -20,7 +19,7 @@ public class SnailMatch implements java.io.Serializable {
     @Column(name = "place", nullable = false)
     private Integer place;
 
-    // Constructor
+    // Getters, Setters
     public Snail getSnail() {
         return snail;
     }

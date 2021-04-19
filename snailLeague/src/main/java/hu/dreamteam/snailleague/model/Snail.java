@@ -33,8 +33,12 @@ public class Snail {
     private Skin skinId;
 
     // From SnailMatch Table
-    @OneToMany(mappedBy = "snail")
+    @OneToMany(mappedBy = "snail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SnailMatch> snailMatches;
+
+    // From UserMatch Table
+    @OneToMany(mappedBy = "snailId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserMatch> userMatch;
 
     // Constructor
     public Snail() {
@@ -102,5 +106,13 @@ public class Snail {
 
     public void setSnailMatches(Set<SnailMatch> snailMatches) {
         this.snailMatches = snailMatches;
+    }
+
+    public Set<UserMatch> getUserMatch() {
+        return userMatch;
+    }
+
+    public void setUserMatch(Set<UserMatch> userMatch) {
+        this.userMatch = userMatch;
     }
 }

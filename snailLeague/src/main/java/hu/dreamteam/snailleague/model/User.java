@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,10 +30,9 @@ public class User {
     @JsonIgnore
     private List<Snail> snails;
 
-    // From Match Table
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Match> matches;
+    // From UserMatch Table
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserMatch> userMatches;
 
     // Getters, Setters
     public Long getId() {
@@ -75,11 +75,11 @@ public class User {
         this.snails = snails;
     }
 
-    public List<Match> getMatches() {
-        return matches;
+    public Set<UserMatch> getUserMatches() {
+        return userMatches;
     }
 
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
+    public void setUserMatches(Set<UserMatch> userMatches) {
+        this.userMatches = userMatches;
     }
 }
