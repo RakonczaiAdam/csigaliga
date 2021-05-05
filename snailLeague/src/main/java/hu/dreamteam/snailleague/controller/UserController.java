@@ -61,10 +61,12 @@ public class UserController {
         return response;
     }
 
+    // user leaderboard based on money
     @GetMapping("/users/leaderboard")
     public List<User> userLeaderboard() {
         List<User> userList = userRepository.findAll();
         Collections.sort(userList);
+        Collections.reverse(userList);
         return userList;
     }
 }
