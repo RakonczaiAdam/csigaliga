@@ -24,19 +24,19 @@ public class SnailController {
     private UserRepository userRepository;
 
     // create snail
-    @PostMapping("/snails")
+    @PostMapping("/snails/create")
     public Snail createSnail (@RequestBody Snail snail) {
         return this.snailRepository.save(snail);
     }
 
     // get snails
-    @GetMapping("/snails")
+    @GetMapping("/snails/get")
     public List<Snail> getAllSnail() {
         return this.snailRepository.findAll();
     }
 
     // get snails by user id
-    @GetMapping("/snails")
+    @GetMapping("/snails/getbyuid")
     public List<Snail> getSnailByUserId(Long userId) {
         List<Snail> allSnails = snailRepository.findAll();
         List<Snail> userSails = new ArrayList<Snail>();
@@ -50,7 +50,7 @@ public class SnailController {
     }
 
     // set snail to user id
-    @PutMapping("/snails/{id}")
+    @PutMapping("/snails/settouid/{id}")
     public ResponseEntity<Snail> assignSnailToUser(@PathVariable(value = "id") Long snailId, @Validated @RequestBody User userAsOwner) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by the id: " + snailId));
 
@@ -60,7 +60,7 @@ public class SnailController {
     }
 
     // update snail
-    @PutMapping("/snails/{id}")
+    @PutMapping("/snails/updatesnail/{id}")
     public ResponseEntity<Snail> updateSnail(@PathVariable(value = "id") Long snailId, @Validated @RequestBody Snail snailDetails) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by the id : " + snailId));
 
@@ -72,7 +72,7 @@ public class SnailController {
     }
 
     // delete snail from user id
-    @PutMapping("/snails/{id}")
+    @PutMapping("/snails/deletesnailfromuid/{id}")
     public ResponseEntity<Snail> removeSnailFromUser(@PathVariable(value = "id") Long snailId) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by the id: " + snailId));
 
@@ -82,7 +82,7 @@ public class SnailController {
     }
 
     // get snail
-    @GetMapping("/snails/{id}")
+    @GetMapping("/snails/getsnail/{id}")
     public ResponseEntity<Snail> getSnailById(@PathVariable(value = "id") Long snailId) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by this id: " + snailId));
 
@@ -90,7 +90,7 @@ public class SnailController {
     }
 
     // delete snail
-    @DeleteMapping("/snails/{id}")
+    @DeleteMapping("/snails/deletesnail/{id}")
     public Map<String, Boolean> deleteSnail(@PathVariable(value = "id") Long snailId) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by the id: " + snailId));
 
