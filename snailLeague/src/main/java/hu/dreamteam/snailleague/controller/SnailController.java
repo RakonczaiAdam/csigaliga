@@ -51,10 +51,11 @@ public class SnailController {
 
     // set snail to user id
     @PutMapping("/snails/settouid/{id}")
-    public ResponseEntity<Snail> assignSnailToUser(@PathVariable(value = "id") Long snailId, @Validated @RequestBody User userAsOwner) throws ResourceNotFoundException {
+    public ResponseEntity<Snail> assignSnailToUser(@PathVariable(value = "id") Long snailId, @Validated @RequestParam("user") Long userId) throws ResourceNotFoundException {
         Snail snail = snailRepository.findById(snailId).orElseThrow(() -> new ResourceNotFoundException("Snail not found by the id: " + snailId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found by the id: " + userId));
 
-        snail.setUserId(userAsOwner);
+        snail.setUserId(user);
 
         return ResponseEntity.ok(this.snailRepository.save(snail));
     }
