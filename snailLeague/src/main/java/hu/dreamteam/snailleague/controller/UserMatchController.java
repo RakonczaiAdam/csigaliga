@@ -25,19 +25,19 @@ public class UserMatchController {
     private UserRepository userRepository;
 
     // create usermatch
-    @PostMapping("/usermatches")
+    @PostMapping("/usermatches/create")
     public UserMatch createUserMatch(@RequestBody UserMatch userMatch) {
         return this.userMatchRepository.save(userMatch);
     }
 
     // get usermatches
-    @GetMapping("/usermatches")
+    @GetMapping("/usermatches/get")
     public List<UserMatch> getAllUserMatches() {
         return this.userMatchRepository.findAll();
     }
 
     // get usermatch by id
-    @GetMapping("/usermatches/{id}")
+    @GetMapping("/usermatches/getbyid/{id}")
     public ResponseEntity<UserMatch> getUserMatchById(@PathVariable(value = "id") Long userMatchId) throws ResourceNotFoundException {
         UserMatch userMatch = userMatchRepository.findById(userMatchId).orElseThrow(() -> new ResourceNotFoundException("UserMatch not found by this id: " + userMatchId));
 
@@ -45,7 +45,7 @@ public class UserMatchController {
     }
 
     // update usermatch set match,user,snail
-    @PutMapping("/usermatches/{id}")
+    @PutMapping("/usermatches/setmus/{id}")
     public ResponseEntity<UserMatch> updateuserMatchMatchUser(@PathVariable(value = "id") Long userMatchId, @Validated @RequestBody User user, @Validated @RequestBody Match match, @Validated @RequestBody Snail snail) throws ResourceNotFoundException {
         UserMatch userMatch = userMatchRepository.findById(userMatchId).orElseThrow(() -> new ResourceNotFoundException("UserMatch not found by the id : " + userMatchId));
 
@@ -57,7 +57,7 @@ public class UserMatchController {
     }
 
     // update usermatch assign win,money
-    @PutMapping("/usermatches/{id}")
+    @PutMapping("/usermatches/updatewm/{id}")
     public ResponseEntity<UserMatch> updateUserMatchPlace(@PathVariable(value = "id") Long userMatchId, Integer money, Boolean win) throws ResourceNotFoundException {
         UserMatch userMatch = userMatchRepository.findById(userMatchId).orElseThrow(() -> new ResourceNotFoundException("UserMatch not found by the id : " + userMatchId));
 
@@ -68,7 +68,7 @@ public class UserMatchController {
     }
 
     // delete usermatch
-    @DeleteMapping("/usermatches/{id}")
+    @DeleteMapping("/usermatches/delete/{id}")
     public Map<String, Boolean> deleteUserMatch(@PathVariable(value = "id") Long userMatchId) throws ResourceNotFoundException {
         UserMatch userMatch = userMatchRepository.findById(userMatchId).orElseThrow(() -> new ResourceNotFoundException("UserMatch not found by the id: " + userMatchId));
 

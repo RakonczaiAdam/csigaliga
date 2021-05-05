@@ -25,19 +25,19 @@ public class SnailMatchController {
     private UserRepository userRepository;
 
     // create snailmatch
-    @PostMapping("/snailmatches")
+    @PostMapping("/snailmatches/create")
     public SnailMatch createSnailMatch(@RequestBody SnailMatch snailMatch) {
         return this.snailMatchRepository.save(snailMatch);
     }
 
     // get snailmatches
-    @GetMapping("/snailmatches")
+    @GetMapping("/snailmatches/get")
     public List<SnailMatch> getAllSnailMatches() {
         return this.snailMatchRepository.findAll();
     }
 
     // get snailmatch by id
-    @GetMapping("/snailmatches/{id}")
+    @GetMapping("/snailmatches/getbyid/{id}")
     public ResponseEntity<SnailMatch> getSnailMatchById(@PathVariable(value = "id") Long snailMatchId) throws ResourceNotFoundException {
         SnailMatch snailMatch = snailMatchRepository.findById(snailMatchId).orElseThrow(() -> new ResourceNotFoundException("SnailMatch not found by this id: " + snailMatchId));
 
@@ -45,7 +45,7 @@ public class SnailMatchController {
     }
 
     // update snailmatch assign match/user
-    @PutMapping("/snailmatches/{id}")
+    @PutMapping("/snailmatches/updatemu/{id}")
     public ResponseEntity<SnailMatch> updateSnailMatchMatchUser(@PathVariable(value = "id") Long snailMatchId, @Validated @RequestBody Snail snail, @Validated @RequestBody Match match) throws ResourceNotFoundException {
         SnailMatch snailMatch = snailMatchRepository.findById(snailMatchId).orElseThrow(() -> new ResourceNotFoundException("SnailMatch not found by the id : " + snailMatchId));
 
@@ -56,7 +56,7 @@ public class SnailMatchController {
     }
 
     // update snailmatch assign place
-    @PutMapping("/snailmatches/{id}")
+    @PutMapping("/snailmatches/updateplace/{id}")
     public ResponseEntity<SnailMatch> updateSnailMatchPlace(@PathVariable(value = "id") Long snailMatchId, Integer place) throws ResourceNotFoundException {
         SnailMatch snailMatch = snailMatchRepository.findById(snailMatchId).orElseThrow(() -> new ResourceNotFoundException("SnailMatch not found by the id : " + snailMatchId));
 
@@ -66,7 +66,7 @@ public class SnailMatchController {
     }
 
     // delete snailmatch
-    @DeleteMapping("/snailmatches/{id}")
+    @DeleteMapping("/snailmatches/delete/{id}")
     public Map<String, Boolean> deleteSnailMatch(@PathVariable(value = "id") Long snailMatchId) throws ResourceNotFoundException {
         SnailMatch snailMatch = snailMatchRepository.findById(snailMatchId).orElseThrow(() -> new ResourceNotFoundException("SnailMatch not found by the id: " + snailMatchId));
 

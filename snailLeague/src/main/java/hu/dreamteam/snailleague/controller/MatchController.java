@@ -29,13 +29,13 @@ public class MatchController {
     private SnailMatchRepository snailMatchRepository;
 
     //create match
-    @PostMapping("/matches")
+    @PostMapping("/matches/create")
     public Match createMatch (@RequestBody Match match) {
         return this.matchRepository.save(match);
     }
 
     //update match
-    @PutMapping("/matches/{id}")
+    @PutMapping("/matches/update/{id}")
     public ResponseEntity<Match> matchUser(@PathVariable(value = "id") Long matchId, @Validated @RequestBody Match matchDetails) throws ResourceNotFoundException {
         Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found by the id: " + matchId));
 
@@ -49,20 +49,20 @@ public class MatchController {
     }
 
     //get all matches
-    @GetMapping("/matches")
+    @GetMapping("/matches/getall")
     public List<Match> getAllMatch() {
         return this.matchRepository.findAll();
     }
 
     //get match by id
-    @GetMapping("/matches/{id}")
+    @GetMapping("/matches/getbyid/{id}")
     public ResponseEntity<Match> getMatchById(@PathVariable(value = "id") Long matchId) throws ResourceNotFoundException {
         Match match = matchRepository.findById(matchId).orElseThrow(() -> new ResourceNotFoundException("Match not found for this id :: " + matchId));
         return ResponseEntity.ok().body(match);
     }
 
     //get matches by user id
-    @GetMapping("/usermatches/{id}")
+    @GetMapping("/usermatches/getbyuid/{id}")
     public List<Match> getMatchByUserId(@PathVariable(value = "id") Long userMatchId, @Validated @RequestBody User user) throws ResourceNotFoundException {
         List<UserMatch> allUserMatches = this.userMatchRepository.findAll();
         List<Match> userMatches = new ArrayList<Match>();
@@ -77,7 +77,7 @@ public class MatchController {
     }
 
     //get matches by snail id
-    @GetMapping("/snailmatches/{id}")
+    @GetMapping("/snailmatches/gebysid/{id}")
     public List<Match> getMatchBySnailId(@PathVariable(value = "id") Long snailMatchId, @Validated @RequestBody Snail snail) throws ResourceNotFoundException {
         List<SnailMatch> allSnailMatches = this.snailMatchRepository.findAll();
         List<Match> snailMatches = new ArrayList<Match>();
@@ -90,8 +90,4 @@ public class MatchController {
         }
         return snailMatches;
     }
-
-    //add snail to match
-
-    //add user to match
 }
