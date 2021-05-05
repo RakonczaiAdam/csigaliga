@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -61,5 +59,12 @@ public class UserController {
         response.put("deleted", Boolean.TRUE);
 
         return response;
+    }
+
+    @GetMapping("/users/leaderboard")
+    public List<User> userLeaderboard() {
+        List<User> userList = userRepository.findAll();
+        Collections.sort(userList);
+        return userList;
     }
 }

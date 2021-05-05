@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User> {
 
     // ID
     @Id
@@ -81,5 +81,10 @@ public class User {
 
     public void setUserMatches(Set<UserMatch> userMatches) {
         this.userMatches = userMatches;
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return this.moneyAmount.compareTo(user.getMoneyAmount());
     }
 }
