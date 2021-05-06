@@ -24,12 +24,12 @@ public class Snail {
 
     // From Users Table
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private User userId;
 
     // From Skins Table
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "skinId", nullable = false)
+    @JoinColumn(name = "skinId")
     private Skin skinId;
 
     // From SnailMatch Table
