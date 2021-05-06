@@ -1,11 +1,7 @@
 package hu.dreamteam.snailleague.controller;
 
 import hu.dreamteam.snailleague.exception.ResourceNotFoundException;
-import hu.dreamteam.snailleague.model.Snail;
-import hu.dreamteam.snailleague.model.User;
-import hu.dreamteam.snailleague.model.Match;
-import hu.dreamteam.snailleague.model.SnailMatch;
-import hu.dreamteam.snailleague.model.UserMatch;
+import hu.dreamteam.snailleague.model.*;
 import hu.dreamteam.snailleague.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +23,13 @@ public class MatchController {
     private MatchRepository matchRepository;
     private UserMatchRepository userMatchRepository;
     private SnailMatchRepository snailMatchRepository;
+    private MapRepository mapRepository;
 
     //create match
     @PostMapping("/matches/create")
-    public Match createMatch (@RequestBody Match match) {
+    public Match createMatch (@RequestBody Match match, @RequestParam("map") Long mapID) throws ResourceNotFoundException{
+        Map map = mapRepository.findById(mapID).orElseThrow(() -> new ResourceNotFoundException("Map not found by the id: " + mapID));
+        match.setMapId(map);
         return this.matchRepository.save(match);
     }
 
