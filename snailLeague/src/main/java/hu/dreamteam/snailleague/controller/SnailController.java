@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class SnailController {
 
     @Autowired
@@ -29,13 +29,18 @@ public class SnailController {
     private SnailMatchRepository snailMatchRepository;
     private SkinRepository skinRepository;
 
+    @Autowired
+    private void setSnailRepo(SnailRepository snailRepository){
+        this.snailRepository = snailRepository;
+    }
+
     // create snail
     @PostMapping("/snails/create")
-    public Snail createSnail (@RequestBody Snail snail, @Validated @RequestParam("skin") Long skinID, @Validated @RequestParam("user") Long userID) throws ResourceNotFoundException {
-        Skin skin = skinRepository.findById(skinID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + skinID));
+    public Snail createSnail (@RequestBody Snail snail/*, @Validated @RequestParam("skin") Long skinID, @Validated @RequestParam("user") Long userID*/) throws ResourceNotFoundException {
+        /*Skin skin = skinRepository.findById(skinID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + skinID));
         User user = userRepository.findById(userID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + userID));
         snail.setSkinId(skin);
-        snail.setUserId(user);
+        snail.setUserId(user);*/
         return this.snailRepository.save(snail);
     }
 

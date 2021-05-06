@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class MatchController {
 
     @Autowired
@@ -25,11 +25,16 @@ public class MatchController {
     private SnailMatchRepository snailMatchRepository;
     private MapRepository mapRepository;
 
+    @Autowired
+    private void setMatchRepo(MatchRepository matchRepository){
+        this.matchRepository = matchRepository;
+    }
+
     //create match
     @PostMapping("/matches/create")
-    public Match createMatch (@RequestBody Match match, @RequestParam("map") Long mapID) throws ResourceNotFoundException{
-        Map map = mapRepository.findById(mapID).orElseThrow(() -> new ResourceNotFoundException("Map not found by the id: " + mapID));
-        match.setMapId(map);
+    public Match createMatch (@RequestBody Match match/*, @RequestParam("map") Long mapID*/) throws ResourceNotFoundException{
+        /*Map map = mapRepository.findById(mapID).orElseThrow(() -> new ResourceNotFoundException("Map not found by the id: " + mapID));
+        match.setMapId(map);*/
         return this.matchRepository.save(match);
     }
 

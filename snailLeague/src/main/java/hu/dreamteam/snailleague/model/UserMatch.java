@@ -27,6 +27,13 @@ public class UserMatch implements java.io.Serializable {
     @JoinColumn(name = "snailId", nullable = false)
     private Snail snailId;
 
+    private UserMatch(){}
+
+    public UserMatch(User user, Match match){
+        this.user = user;
+        this.match = match;
+    }
+
     // Getters, Setters
 
     public User getUser() {

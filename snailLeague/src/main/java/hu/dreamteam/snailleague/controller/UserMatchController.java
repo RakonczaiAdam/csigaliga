@@ -5,6 +5,7 @@ import hu.dreamteam.snailleague.model.Match;
 import hu.dreamteam.snailleague.model.Snail;
 import hu.dreamteam.snailleague.model.User;
 import hu.dreamteam.snailleague.model.UserMatch;
+import hu.dreamteam.snailleague.repository.MatchRepository;
 import hu.dreamteam.snailleague.repository.UserMatchRepository;
 import hu.dreamteam.snailleague.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,21 @@ public class UserMatchController {
     @Autowired
     private UserMatchRepository userMatchRepository;
     private UserRepository userRepository;
+    private MatchRepository matchRepository;
+
+    @Autowired
+    private void setRepos(UserMatchRepository userMatchRepository, UserRepository userRepository, MatchRepository matchRepository){
+        this.userMatchRepository = userMatchRepository;
+        this.userRepository = userRepository;
+        this.matchRepository = matchRepository;
+    }
 
     // create usermatch
     @PostMapping("/usermatches/create")
-    public UserMatch createUserMatch(@RequestBody UserMatch userMatch) {
+    public UserMatch createUserMatch(@RequestParam("user") Long userId, @RequestParam("match") Long matchId) {
+        User user = userRepository.findById(userId).get();
+        Match match = matchRepository.findById(matchId).get();
+        UserMatch userMatch = new UserMatch(user, match);
         return this.userMatchRepository.save(userMatch);
     }
 

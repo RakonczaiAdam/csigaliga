@@ -22,7 +22,7 @@ public class Match {
 
     // From Maps Table
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mapId", nullable = false)
+    @JoinColumn(name = "mapId", nullable = true)
     private Map mapId;
 
     // From SnailMatch Table
