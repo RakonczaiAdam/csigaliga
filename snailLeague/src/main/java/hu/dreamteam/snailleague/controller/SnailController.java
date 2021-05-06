@@ -4,6 +4,8 @@ import hu.dreamteam.snailleague.exception.ResourceNotFoundException;
 import hu.dreamteam.snailleague.model.Snail;
 import hu.dreamteam.snailleague.model.User;
 import hu.dreamteam.snailleague.model.SnailMatch;
+import hu.dreamteam.snailleague.model.Skin;
+import hu.dreamteam.snailleague.repository.SkinRepository;
 import hu.dreamteam.snailleague.repository.SnailMatchRepository;
 import hu.dreamteam.snailleague.repository.SnailRepository;
 import hu.dreamteam.snailleague.repository.UserRepository;
@@ -25,10 +27,13 @@ public class SnailController {
     private SnailRepository snailRepository;
     private UserRepository userRepository;
     private SnailMatchRepository snailMatchRepository;
+    private SkinRepository skinRepository;
 
     // create snail
     @PostMapping("/snails/create")
-    public Snail createSnail (@RequestBody Snail snail) {
+    public Snail createSnail (@RequestBody Snail snail, @Validated @RequestParam("skin") Long skinID) throws ResourceNotFoundException {
+        Skin skin = skinRepository.findById(skinID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + skinID));
+        snail.setSkinId(skin);
         return this.snailRepository.save(snail);
     }
 
