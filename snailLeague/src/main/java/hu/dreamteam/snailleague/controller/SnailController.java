@@ -31,9 +31,11 @@ public class SnailController {
 
     // create snail
     @PostMapping("/snails/create")
-    public Snail createSnail (@RequestBody Snail snail, @Validated @RequestParam("skin") Long skinID) throws ResourceNotFoundException {
+    public Snail createSnail (@RequestBody Snail snail, @Validated @RequestParam("skin") Long skinID, @Validated @RequestParam("user") Long userID) throws ResourceNotFoundException {
         Skin skin = skinRepository.findById(skinID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + skinID));
+        User user = userRepository.findById(userID).orElseThrow(() -> new ResourceNotFoundException("Skin not found by the id: " + userID));
         snail.setSkinId(skin);
+        snail.setUserId(user);
         return this.snailRepository.save(snail);
     }
 
