@@ -3,6 +3,8 @@ package hu.dreamteam.snailleague.controller;
 import hu.dreamteam.snailleague.exception.ResourceNotFoundException;
 import hu.dreamteam.snailleague.model.Snail;
 import hu.dreamteam.snailleague.model.User;
+import hu.dreamteam.snailleague.model.SnailMatch;
+import hu.dreamteam.snailleague.repository.SnailMatchRepository;
 import hu.dreamteam.snailleague.repository.SnailRepository;
 import hu.dreamteam.snailleague.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ public class SnailController {
     @Autowired
     private SnailRepository snailRepository;
     private UserRepository userRepository;
+    private SnailMatchRepository snailMatchRepository;
 
     // create snail
     @PostMapping("/snails/create")
@@ -104,4 +107,21 @@ public class SnailController {
     }
 
     //snail leaderboard
+    @GetMapping("/snails/leaderboard")
+    public HashMap<Snail, Integer> snailLeaderboard() {
+        HashMap<Snail, Integer> snailMap = new HashMap<Snail, Integer>();
+        List<Snail> snailList = snailRepository.findAll();
+        List<SnailMatch> snailMatches = snailMatchRepository.findAll();
+        Integer wins;
+        for(Snail snail: snailList){
+            wins = 0;
+            for(SnailMatch match: snailMatches){
+                if(match.getSnail().getId().equals(snail.getId()) && match.getPlace().equals(1)){
+                    wins++;
+                }
+            }
+            snailMap.put(snail, wins);
+        }
+        return snailMap;
+    }
 }
